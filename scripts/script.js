@@ -1,4 +1,41 @@
-const container = document.getElementById("container");
+const mainContainer = document.querySelector(".main-container");
+
+const container = document.querySelector("#container");
+
+const pixelButton = document.createElement("button");
+
+const clearButton = document.createElement("button");
+
+const para = document.createElement("p");
+
+const cell = document.createElement("div");
+
+para.classList.add('para');
+para.textContent = "Click the button below to change the number of pixels"
+mainContainer.appendChild(para);
+
+pixelButton.classList.add('pixelButton');
+pixelButton.textContent = "Click Me for New Pixels"
+pixelButton.addEventListener('click', () => {
+  // clearGrid();
+  let rS = parseInt(prompt("Enter a pixel figure:"))
+  let cS;
+  cS = rS;
+  if (rS > 64) return
+  else{
+    makeGrids(rS, cS);
+  }
+});
+mainContainer.appendChild(pixelButton);
+
+mainContainer.appendChild(container);
+
+clearButton.classList.add('clearButton');
+clearButton.textContent = "Clear Grid"
+clearButton.addEventListener('click', () => {
+  clearGrid();
+});
+mainContainer.appendChild(clearButton);
 
 function makeGrids(rows, columns) {
   container.style.setProperty('--grid-rows', rows);
@@ -9,22 +46,22 @@ function makeGrids(rows, columns) {
     container.appendChild(cell);
   };
   let gridPixels = container.querySelectorAll('.grid-item');
-   gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseover", gridHover));
-   gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseleave", gridLeave));
+  gridPixels.forEach(gridPixel => gridPixel.addEventListener("dragover", gridHover));
+  //  gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseleave", gridLeave));
 };
 
-// document.getElementsByClassName("grid-item").addEventListener("mouseover", function() {
-//         document.getElementById("grid-item").style.backgroundColor = "green";
-//     });
-// function hoverEffect(){
-//     document.getElementsByClassName("grid-item").style.background-color = 'red'
-// }
+
 function gridHover() {
     this.style.backgroundColor = 'green';
 }
 
 function gridLeave() {
-    this.style.backgroundColor = 'none';
+    this.style.background = 'none';
 }
-// colorButtons.forEach(colorButton => colorButton.addEventListener('mouseover', buttonHover));
+
+function clearGrid() {
+  location.reload();
+  // makeGrids(16, 16);
+}
+
 makeGrids(16, 16);
