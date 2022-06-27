@@ -8,6 +8,8 @@ const clearButton = document.createElement("button");
 
 const rainbowButton = document.createElement("button");
 
+const blackButton = document.createElement("button");
+
 const para = document.createElement("p");
 
 const cell = document.createElement("div");
@@ -38,10 +40,6 @@ rainbowButton.addEventListener('click', () => {
   let gridPixels = container.querySelectorAll('div');
   gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseover", gridRandomHoverColor));
 });
-// rainbowButton.addEventListener('dblclick', () => {
-//   let gridPixels = container.querySelectorAll('div');
-//   gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseover", gridHoverColor));
-// });
 mainContainer.appendChild(rainbowButton);
 
 clearButton.classList.add('clearButton');
@@ -50,6 +48,14 @@ clearButton.addEventListener('click', () => {
   clearGrid();
 });
 mainContainer.appendChild(clearButton);
+
+blackButton.classList.add('blackButton');
+blackButton.textContent = "Reset grid"
+blackButton.addEventListener('click', () => {
+  clearGrid();
+  makeGrids(16);
+});
+mainContainer.appendChild(blackButton);
 
 function makeGrids(squares) {
   container.style.setProperty('--grid-rows', squares);
@@ -60,11 +66,14 @@ function makeGrids(squares) {
     cell.addEventListener("mouseover", gridHoverColor);
     container.appendChild(cell);
   };  
+  // gridPixels.forEach(gridPixel => gridPixel.addEventListener("mousedown", gridHover));
 };
+
 
 function gridHoverColor() {
     this.style.backgroundColor = 'black';
 }
+
 
 function gridRandomHoverColor() {
     var x = Math.floor(Math.random() * 256);
@@ -74,9 +83,12 @@ function gridRandomHoverColor() {
     this.style.backgroundColor = bgColor;
 }
 
+// random_bg_color();
+
 function clearGrid() {
   let gridPixels = container.querySelectorAll('div');
   gridPixels.forEach(gridPixel => gridPixel.style.backgroundColor = '#ffffff');
+  // location.reload();
 }
 
 makeGrids(16);
